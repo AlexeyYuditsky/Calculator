@@ -46,6 +46,11 @@ fun CalculatorScreen(
 
         Row {
             CalculatorButton(
+                text = "0",
+                testTag = "zero",
+                onClick = actions::clickZero
+            )
+            CalculatorButton(
                 text = "1",
                 testTag = "one",
                 onClick = actions::clickOne
@@ -78,6 +83,7 @@ fun PreviewCalculatorScreen() =
         input = "1+2",
         result = "3",
         actions = object : CalculatorActions {
+            override fun clickZero() {}
             override fun clickOne() {}
             override fun clickTwo() {}
             override fun clickPlus() {}

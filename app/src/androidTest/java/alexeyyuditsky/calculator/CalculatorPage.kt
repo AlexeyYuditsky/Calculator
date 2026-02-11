@@ -13,6 +13,9 @@ class CalculatorPage(
     composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<MainActivity>, MainActivity>,
 ) {
 
+    private val zero = composeTestRule.onNode(
+        hasTestTag("zero") and hasText("0") and hasClickAction()
+    )
     private val one = composeTestRule.onNode(
         hasTestTag("one") and hasText("1") and hasClickAction()
     )
@@ -31,6 +34,8 @@ class CalculatorPage(
     private val result = composeTestRule.onNode(
         hasTestTag("result") and hasNoClickAction()
     )
+
+    fun clickZero() = zero.performClick()
 
     fun clickOne() = one.performClick()
 

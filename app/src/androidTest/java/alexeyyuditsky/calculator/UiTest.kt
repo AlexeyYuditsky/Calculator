@@ -29,4 +29,36 @@ class UiTest {
         calculatorPage.assertInput(expected = "1+2")
         calculatorPage.assertResult(expected = "3")
     }
+
+    @Test
+    fun sum_of_two_numbers_corner_case() {
+        calculatorPage.clickOne()
+        calculatorPage.assertInput(expected = "1")
+
+        var expected = "1"
+        repeat(9) {
+            calculatorPage.clickZero()
+            expected += 0
+            calculatorPage.assertInput(expected = expected)
+        }
+        calculatorPage.assertInput(expected = "1000000000")
+
+        calculatorPage.clickPlus()
+        calculatorPage.assertInput(expected = "1000000000+")
+
+        calculatorPage.clickTwo()
+        calculatorPage.assertInput(expected = "1000000000+2")
+
+        expected = "1000000000+2"
+        repeat(9) {
+            calculatorPage.clickZero()
+            expected += 0
+            calculatorPage.assertInput(expected = expected)
+        }
+        calculatorPage.assertInput(expected = "1000000000+2000000000")
+
+        calculatorPage.clickEquals()
+        calculatorPage.assertInput(expected = "1000000000+2000000000")
+        calculatorPage.assertResult(expected = "3000000000")
+    }
 }
