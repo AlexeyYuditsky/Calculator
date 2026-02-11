@@ -12,8 +12,21 @@ class UiTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
-    @Test
-    fun number_one() {
+    private val calculatorPage = CalculatorPage(composeTestRule)
 
+    @Test
+    fun sum_of_two_numbers() {
+        calculatorPage.clickOne()
+        calculatorPage.assertInput(expected = "1")
+
+        calculatorPage.clickPlus()
+        calculatorPage.assertInput(expected = "1+")
+
+        calculatorPage.clickTwo()
+        calculatorPage.assertInput(expected = "1+2")
+
+        calculatorPage.clickEquals()
+        calculatorPage.assertInput(expected = "1+2")
+        calculatorPage.assertResult(expected = "3")
     }
 }
