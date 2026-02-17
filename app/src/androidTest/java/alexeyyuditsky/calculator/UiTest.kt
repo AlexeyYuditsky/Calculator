@@ -61,4 +61,13 @@ class UiTest {
         calculatorPage.assertInput(expected = "1000000000+2000000000")
         calculatorPage.assertResult(expected = "3000000000")
     }
+
+    @Test
+    fun prevent_multiple_zeros() {
+        calculatorPage.clickZero()
+        calculatorPage.assertInput(expected = "0")
+
+        calculatorPage.clickZero()
+        calculatorPage.assertInput(expected = "0")
+    }
 }

@@ -8,4 +8,12 @@ interface CalculatorActions {
 
     fun clickPlus()
     fun clickEquals()
+
+    data object Empty : CalculatorActions {
+        override fun clickZero() {}
+        override fun clickOne() {}
+        override fun clickTwo() {}
+        override fun clickPlus() {}
+        override fun clickEquals() {}
+    }
 }

@@ -5,13 +5,10 @@ import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasNoClickAction
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.junit4.AndroidComposeTestRule
+import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.performClick
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 
-class CalculatorPage(
-    composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<MainActivity>, MainActivity>,
-) {
+class CalculatorPage(composeTestRule: ComposeContentTestRule) {
 
     private val zero = composeTestRule.onNode(
         hasTestTag("zero") and hasText("0") and hasClickAction()

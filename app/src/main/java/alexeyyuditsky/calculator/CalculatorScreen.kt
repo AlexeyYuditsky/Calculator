@@ -1,12 +1,12 @@
 package alexeyyuditsky.calculator
 
+import alexeyyuditsky.calculator.ui.theme.CalculatorTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,14 +18,13 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun CalculatorScreen(
-    input: String,
-    result: String,
+    state: CalculatorState,
     actions: CalculatorActions,
+    modifier: Modifier = Modifier,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = modifier.fillMaxSize()) {
         Text(
-            text = input,
-            style = MaterialTheme.typography.bodyLarge,
+            text = state.input,
             textAlign = TextAlign.Center,
             fontSize = 34.sp,
             modifier = Modifier
@@ -34,8 +33,7 @@ fun CalculatorScreen(
                 .testTag("input")
         )
         Text(
-            text = result,
-            style = MaterialTheme.typography.bodyLarge,
+            text = state.result,
             textAlign = TextAlign.Center,
             fontSize = 34.sp,
             modifier = Modifier
@@ -78,18 +76,12 @@ fun CalculatorScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewCalculatorScreen() =
+fun PreviewCalculatorScreen() = CalculatorTheme {
     CalculatorScreen(
-        input = "1+2",
-        result = "3",
-        actions = object : CalculatorActions {
-            override fun clickZero() {}
-            override fun clickOne() {}
-            override fun clickTwo() {}
-            override fun clickPlus() {}
-            override fun clickEquals() {}
-        }
+        state = CalculatorState(input = "1+2", result = "3"),
+        actions = CalculatorActions.Empty
     )
+}
 
 @Composable
 private fun CalculatorButton(

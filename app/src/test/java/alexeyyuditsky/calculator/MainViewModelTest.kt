@@ -1,66 +1,74 @@
 package alexeyyuditsky.calculator
 
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 
 class MainViewModelTest {
 
     private val viewModel = CalculatorViewModel()
+    private val state = viewModel.state
+
+    @Before
+    fun setup() {
+        assertEquals("", state.value.input)
+        assertEquals("", state.value.result)
+    }
 
     @Test
     fun sum_of_two_numbers() {
-        val inputFlow = viewModel.inputFlow
-        val resultFlow = viewModel.resultFlow
-
-        assertEquals("", inputFlow.value)
-        assertEquals("", resultFlow.value)
-
         viewModel.clickOne()
-        assertEquals("1", inputFlow.value)
+        assertEquals("1", state.value.input)
 
         viewModel.clickPlus()
-        assertEquals("1+", inputFlow.value)
+        assertEquals("1+", state.value.input)
 
         viewModel.clickTwo()
-        assertEquals("1+2", inputFlow.value)
+        assertEquals("1+2", state.value.input)
 
         viewModel.clickEquals()
-        assertEquals("1+2", inputFlow.value)
-        assertEquals("3", resultFlow.value)
+        assertEquals("1+2", state.value.input)
+        assertEquals("3", state.value.result)
     }
 
     @Test
     fun sum_of_two_numbers_corner_case() {
-        val inputFlow = viewModel.inputFlow
-        val resultFlow = viewModel.resultFlow
-
         viewModel.clickOne()
-        assertEquals("1", inputFlow.value)
+        assertEquals("1", state.value.input)
 
         var expected = "1"
         repeat(9) {
             viewModel.clickZero()
             expected += 0
-            assertEquals(expected, inputFlow.value)
+            assertEquals(expected, state.value.input)
         }
-        assertEquals("1000000000", inputFlow.value)
+        assertEquals("1000000000", state.value.input)
 
         viewModel.clickPlus()
-        assertEquals("1000000000+", inputFlow.value)
+        assertEquals("1000000000+", state.value.input)
 
         viewModel.clickTwo()
-        assertEquals("1000000000+2", inputFlow.value)
+        assertEquals("1000000000+2", state.value.input)
 
         expected = "1000000000+2"
         repeat(9) {
             viewModel.clickZero()
             expected += 0
-            assertEquals(expected, inputFlow.value)
+            assertEquals(expected, state.value.input)
         }
-        assertEquals("1000000000+2000000000", inputFlow.value)
+        assertEquals("1000000000+2000000000", state.value.input)
 
         viewModel.clickEquals()
-        assertEquals("1000000000+2000000000", inputFlow.value)
-        assertEquals("3000000000", resultFlow.value)
+        assertEquals("1000000000+2000000000", state.value.input)
+        assertEquals("3000000000", state.value.result)
+    }
+
+    @Test
+    fun prevent_multiple_zeros() {
+        viewModel.clickZero()
+        assertEquals("0", state.value.input)
+
+        viewModel.clickZero()
+        assertEquals("0", state.value.input)
     }
 }
