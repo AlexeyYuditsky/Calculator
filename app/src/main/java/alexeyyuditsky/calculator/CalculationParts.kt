@@ -6,5 +6,5 @@ class CalculationParts(
     val right: String = "",
 ) {
 
-    val value: String get() = "$left$operation$right"
+    val value: String = "$left$operation$right"
 }

@@ -10,4 +10,10 @@ enum class Operation {
     MINUS {
         override fun toString(): String = "-"
     },
+    MULTIPLE {
+        override fun toString(): String = "*"
+    },
+    DIVIDE {
+        override fun toString(): String = ":"
+    }
 }
